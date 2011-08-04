@@ -1,0 +1,62 @@
+<div id="page">
+      <div id="sidebar">
+        <ul id="sidebar-items">
+			<li><a href="/browse">Browse files</a></li>
+			<li><a href="/apps">Applications</a></li>
+			<li><a href="/jobs">Jobs</a></li>
+			<li><a href="/logout">Logout</a></li>
+		</ul>
+	  </div>
+
+	<div id="content">
+
+[% IF list.size %]
+	<div>Submitted jobs:</div>
+	<div>size: [% list.size %]
+	<p>
+	[% FOREACH j IN list %]
+		<div><a href="/job/[% j.id |url%]">[% j.name %]</a> - [% j.status %]</div>
+	[% END %]
+	</p>
+[% END %]
+
+		<div id="job_new">
+			<a id="new_job_link" href="#" onclick="javascript:load_apps()">new job</a>
+			<select id="app_list" onchange="javascript:new_job(this.value)" style="display:none;">
+				<option value="">-= pick application =-</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+function load_apps() {
+	$.ajax({
+		url: '/xapps',  
+		beforeSend: function( xhr ) {
+			//xhr.overrideMimeType( 'text/plain; charset=x-user-defined' );
+		},
+		success: function( data ) {
+			$('#new_job_link').hide();
+			/*
+			if (console && console.log){
+				console.log( data[0] );
+			}*/
+			$('#app_list').show();
+			for (var i in data) {
+				//console.log(data[i].id);
+                $("<option />").attr("value", data[i].id).text(data[i].id).appendTo("#app_list");
+			}
+		}
+	});
+}
+
+function new_job(app) {
+	if (!app) {
+		return;
+	}
+	$('#app_list').hide();
+	document.location.href="/job/new/" + app;
+}
+</script>
+

@@ -1,0 +1,25 @@
+[% USE date %]
+<div id="page">
+	[% INCLUDE 'sidebar.tt' %]
+
+	<div id="content">
+[% IF job %]
+<div>Details on job <strong>[% job.id %]</strong>:</div>
+	<p>
+		<dl>
+			<dt>Name</dt><dd>[% job.name %]</dd>
+			<dt>Application</dt><dd>[% job.software %]</dd>
+			<dt>Status</dt><dd>[% job.status %]</dd>
+			<dt>Submitted on </dt><dd>[% date.format(job.submitTime / 1000) %]</dd>
+			<dt>Finished on </dt><dd>[% date.format(job.endTime / 1000) %]</dd>
+			<dt>Owner</dt><dd>[% job.owner %]</dd>
+		</dl>
+	</p>
+	<div><a onclick="return confirm('Really remove this job?');" href="/job/[% job.id %]/remove">remove job</a></div>
+[% ELSE %]
+	No job found for id: '[% job_id |html %]'.
+[% END %]
+
+	</div>
+</div>
+

@@ -1,0 +1,34 @@
+<div id="page">
+	[% INCLUDE sidebar.tt %]
+
+	<div id="content">
+[% IF app %]
+<div>Details on application <strong>[% app %]</strong>:</div>
+	<p>
+		<dl>
+			<dt>Name</dt><dd>[% app.name %]</dd>
+			<dt>Version</dt><dd>[% app.version%]</dd>
+			<dt>Short desc</dt><dd>[% app.shortDescription %]</dd>
+			<dt>Input(s)</dt><dd>
+				[% FOREACH i IN app_inputs %]
+				<div>- [% i.id %] ([% i.label %])</div>
+				[% END %]
+			</dd>
+			<dt>Parameter(s)</dt><dd>
+				[% FOREACH p IN app_params %]
+				<div>- [% p.id %] ([% p.label %])</div>
+				[% END %]
+			</dd>
+
+			<dt></dt><dd>[% %]</dd>
+			<dt></dt><dd>[% %]</dd>
+			<dt></dt><dd>[% %]</dd>
+		</dl>
+	</p>
+[% ELSE %]
+	No application found for term: '[% name |html %]'.
+[% END %]
+
+	</div>
+</div>
+
