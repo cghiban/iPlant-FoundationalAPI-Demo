@@ -11,7 +11,10 @@
 			<dt>Short desc</dt><dd>[% app.shortDescription %]</dd>
 			<dt>Input(s)</dt><dd>
 				[% FOREACH i IN app_inputs %]
-				<div>- [% i.id %] ([% i.label %])</div>
+				<div>
+					- [% i.id %][% i.required ? "<sup>*</sup>" : "" %] - [% i.fileTypes %] -([% i.label %])
+					<div>&nbsp; <small><em>[% i.value %]</em></small></div>
+				</div>
 				[% END %]
 			</dd>
 			<dt>Parameter(s)</dt><dd>
